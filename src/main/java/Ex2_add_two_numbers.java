@@ -1,7 +1,5 @@
 import utils.ListNode;
 
-import java.util.HashMap;
-
 /**
  * https://leetcode.com/problems/add-two-numbers/description/
  */
