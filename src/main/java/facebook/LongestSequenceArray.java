@@ -6,65 +6,63 @@ package facebook;
 public class LongestSequenceArray {
     public static void main(String[] args) {
         int a[][] = {{9, 2, 1},
-                    {7, 3, 6},
-                    {8, 4, 5}};
+                {7, 3, 6},
+                {8, 4, 5}};
 
         System.out.println(longestSequence(a));
     }
 
     private static int longestSequence(int[][] a) {
-        int max_x = a.length;
-        int max_y = a[0].length;
-        int dp[][] = new int[max_x][max_y];
-
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                dp[i][j] = -1;
-            }
-        }
+        int[][] dp = new int[a.length][a[0].length];
+        markAll(dp, -1);
 
         int max = 0;
+
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[i].length; j++) {
-
-                if (dp[i][j] == -1) {
-                    // find longest from i,j
-                    findLongestFromCell(a, dp, i, j);
-                    max = Math.max(max, dp[i][j]);
-                }
+                max = Math.max(max, markEachNodeLongestSequence(a, dp, i, j));
             }
         }
-
         return max;
+
     }
 
-    private static int findLongestFromCell(int[][] a, int[][] dp, int i, int j) {
-        int max_x = a.length;
-        int max_y = a[0].length;
+    private static int markEachNodeLongestSequence(int[][] a, int[][] dp, int row, int col) {
+        int max_x = a.length - 1;
+        int max_y = a[0].length - 1;
 
-        if(dp[i][j] != -1) {
-            return dp[i][j];
-        }
-        if(i+1 < max_x && (a[i][j] + 1 == a[i+1][j])) {
-            dp[i][j] = 1 + findLongestFromCell(a, dp , i+1, j);
-            return dp[i][j];
+        int valueUnderConsid = a[row][col];
+
+        if (dp[row][col] != -1) {
+            return dp[row][col];
         }
 
-        if(i-1 >= 0 && (a[i][j] + 1 == a[i-1][j])) {
-            dp[i][j] = 1 + findLongestFromCell(a, dp , i-1, j);
-            return dp[i][j];
+        if (row + 1 <= max_x && (valueUnderConsid + 1 == a[row + 1][col])) {
+            return dp[row][col] = 1 + markEachNodeLongestSequence(a, dp, row + 1, col);
         }
 
-        if(j+1 < max_y && (a[i][j] + 1 == a[i][j+1])) {
-            dp[i][j] = 1 + findLongestFromCell(a, dp , i, j+1);
-            return dp[i][j];
+        if (row - 1 >= 0 && (valueUnderConsid + 1 == a[row - 1][col])) {
+            return dp[row][col] = 1 + markEachNodeLongestSequence(a, dp, row - 1, col);
         }
 
-        if(j-1 >=0 && (a[i][j] + 1 == a[i][j-1])) {
-            dp[i][j] = 1 + findLongestFromCell(a, dp , i, j-1);
-            return dp[i][j];
+        if (col + 1 <= max_y && (valueUnderConsid + 1 == a[row][col + 1])) {
+            return dp[row][col] = 1 + markEachNodeLongestSequence(a, dp, row, col + 1);
         }
-        dp[i][j] = 1;
-        return 1;
+
+        if (col - 1 >= 0 && (valueUnderConsid + 1 == a[row][col - 1])) {
+            return dp[row][col] = 1 + markEachNodeLongestSequence(a, dp, row, col - 1);
+        }
+
+        return dp[row][col] = 1;
     }
+
+    private static void markAll(int[][] dp, int newValue) {
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[i].length; j++) {
+                dp[i][j] = newValue;
+            }
+        }
+    }
+
+
 }
