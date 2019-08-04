@@ -13,23 +13,21 @@ public class Ex_797_Source_to_target {
   }
 
   private static List<List<Integer>> allPathsSourceTarget(int[][] input) {
-    int start = 0;
-    List<Integer> midResult = new ArrayList<>();
-    midResult.add(0);
+
     List<List<Integer>> result = new ArrayList<>();
-    bfsTraversal(start, input, midResult, result);
-    return result;  // TODO impl
+    List<Integer> subResult = new ArrayList<Integer>(){{add(0);}};
+    allSubsets(0, input, subResult, result);
+    return result;
   }
 
-  private static void bfsTraversal(int path, int[][] input, List<Integer> midResult, List<List<Integer>> result) {
-    if (path == input.length - 1) {
-      result.add(new ArrayList<>(midResult));
-    } else {
-      for (int nextEle : input[path]) {
-        midResult.add(nextEle);
-        bfsTraversal(nextEle, input, midResult, result);
-        midResult.remove(midResult.size() - 1);
-      }
+  private static void allSubsets(int path, int[][] input, List<Integer> subresult, List<List<Integer>> result) {
+    if(path == input.length - 1) {
+      result.add(new ArrayList<>(subresult));
+    }
+    for(int ele: input[path]) {
+      subresult.add(ele);
+      allSubsets(ele, input, subresult, result);
+      subresult.remove(subresult.size() - 1);
     }
   }
 }
