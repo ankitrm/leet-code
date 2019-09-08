@@ -1,106 +1,112 @@
 package heaps;
 
-/**
- * // TODO Comment
- */
 class MinHeap {
+    int[] heap = null;
+    private int capacity;
+    private boolean isGrowing;
 
-    private int capacity = 10;
-    int size = 0;
-    private int[] arr = new int[capacity];
-
-    private int getLeftIndex(int parent) {
-        return 2 * parent + 1;
+    MinHeap(int capacity, boolean isGrowing) {
+        this.capacity = capacity;
+        heap = new int[capacity];
+        this.isGrowing = isGrowing;
     }
 
-    private int getRightIndex(int parent) {
-        return 2 * parent + 2;
+    int size;
+
+    private int getLeftIdx(int rootIdx) {
+        return 2 * rootIdx + 1;
     }
 
-    private int getParentIndex(int index) {
-        return (index - 1) / 2;
+    private int getRightIdx(int rootIdx) {
+        return 2 * rootIdx + 2;
     }
 
-    private boolean hasLeft(int parent) {
-        return getLeftIndex(parent) < size;
+    private boolean hasLeft(int rootIdx) {
+        return getLeftIdx(rootIdx) < size;
     }
 
-    private boolean hasRight(int parent) {
-        return getRightIndex(parent) < size;
+    private boolean hasRight(int rootIdx) {
+        return getRightIdx(rootIdx) < size;
     }
 
-    private boolean hasParent(int index) {
-        return getParentIndex(index) >= 0;
+    private int getLeftEle(int rootIdx) {
+        return heap[getLeftIdx(rootIdx)];
     }
 
-    private int left(int parent) {
-        return arr[getLeftIndex(parent)];
-    }
-
-    private int right(int parent) {
-        return arr[getRightIndex(parent)];
-    }
-
-    private int parent(int childIndex) {
-        return arr[getParentIndex(childIndex)];
+    private int getRightEle(int rootIdx) {
+        return heap[getRightIdx(rootIdx)];
     }
 
     private boolean hasCapacity() {
         return size < capacity;
     }
 
+    private int getParentIdx(int childIdx) {
+        return (childIdx - 1) / 2;
+    }
+
+    private boolean hasParent(int childIdx) {
+        return childIdx - 1 >= 0;
+    }
+
+    private int getParent(int childIdx) {
+        return heap[getParentIdx(childIdx)];
+    }
+
     void addToHeap(int ele) {
         if (hasCapacity()) {
-            arr[size] = ele;
-            heapifyUp(size);
+            heap[size] = ele;
+            heapifyUp(ele, size);
             size++;
+        } else if (!isGrowing) {
+            throw new IllegalArgumentException("Maximum capacity reached");
+        }
+
+        if (isGrowing && size > capacity - 1) {
+            remove();
+        }
+
+
+    }
+
+    private void heapifyUp(int ele, int idx) {
+        while (hasParent(idx) && heap[idx] < getParent(idx)) {
+            int parentIdx = getParentIdx(idx);
+            swap(idx, parentIdx);
+            idx = parentIdx;
+        }
+    }
+
+    public int remove() {
+        if (size > 0) {
+            int ele = heap[0];
+            swap(0, size - 1);
+            size--;
+            heapifyDown(0);
+            return ele;
         } else {
-            throw new OutOfMemoryError();
+            throw new IllegalArgumentException("No more elements in heap");
         }
     }
 
-    private void heapifyUp(int childIndex) {
-        while (hasParent(childIndex) && parent(childIndex) > arr[childIndex]) {
-            swap(arr, getParentIndex(childIndex), childIndex);
-            childIndex = getParentIndex(childIndex);
-        }
-    }
-
-    private void swap(int[] arr, int parentIndex, int childIndex) {
-        int temp = arr[parentIndex];
-        arr[parentIndex] = arr[childIndex];
-        arr[childIndex] = temp;
-    }
-
-    int remove() {
-        int ele = arr[0];
-        size--;
-        swap(arr, 0, size);
-
-        heapifyDown(0);
-
-        return ele;
-    }
-
-    private void heapifyDown(int index) {
-        while (hasRight(index) && hasLeft(index) && (arr[index] > left(index) || arr[index] > right(index))) {
-            if (left(index) > right(index)) {
-                swap(arr, getRightIndex(index), index);
-                index = getRightIndex(index);
+    private void heapifyDown(int idx) {
+        while (hasLeft(idx)) {
+            int smallerIdx = getLeftIdx(idx);
+            if (hasRight(idx) && heap[smallerIdx] > getRightEle(idx)) {
+                smallerIdx = getRightIdx(idx);
+            }
+            if (heap[idx] > heap[smallerIdx]) {
+                swap(idx, smallerIdx);
+                idx = smallerIdx;
             } else {
-                swap(arr, getLeftIndex(index), index);
-                index = getLeftIndex(index);
+                break;
             }
         }
+    }
 
-        while (hasRight(index) && arr[index] > right(index)) {
-            swap(arr, getRightIndex(index), index);
-            index = getRightIndex(index);
-        }
-
-        while (hasLeft(index) && arr[index] > left(index)) {
-            swap(arr, getLeftIndex(index), index);
-            index = getLeftIndex(index);
-        }
+    private void swap(int idx, int parentIdx) {
+        int temp = heap[idx];
+        heap[idx] = heap[parentIdx];
+        heap[parentIdx] = temp;
     }
 }
