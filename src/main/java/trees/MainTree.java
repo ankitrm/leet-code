@@ -10,13 +10,13 @@ public class MainTree {
      public static void main(String[] args) {
         TNode rootNode = newInitTree();
 
-        Bfs bfs = new Bfs();
+        BfSearch bfSearch = new BfSearch();
 
         // 8 4 18 2 6 11 23 1 3 5 7 9 13 22 27
-         printTree(bfs.traverseBFS(rootNode), "BFS Traversal");
+         printTree(bfSearch.traverseBFS(rootNode), "BFS Traversal");
 
         // 8 18 4 2 6 11 23 27 22 13 9 7 5 3 1
-         printTree(bfs.zigZagTree(rootNode), "ZigZag Traversal");
+         printTree(bfSearch.zigZagTree(rootNode), "ZigZag Traversal");
 
 
          Dfs dfs = new Dfs();
@@ -24,11 +24,11 @@ public class MainTree {
           System.out.println("Operation:: Postorder ->");
           dfs.postOrderRecur(rootNode);
 
-         // 8 1 3 2 5 7 6 4 9 13 11 22 27 23 18
+         // 8 4 2 1 3 6 5 7 18 11 9 13 23 22 27
           System.out.println("Operation:: Preorder ->");
           dfs.preOrderRecur(rootNode);
 
-         // 1 3 2 5 7 6 4 8 9 13 11 22 27 23 18
+         // 1 2 3 4 5 6 7 8 9 11 13 18 22 23 27
           System.out.println("Operation:: Inorder ->");
           dfs.inOrderRecur(rootNode);
 

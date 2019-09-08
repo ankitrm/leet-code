@@ -2,7 +2,7 @@ package trees;
 
 import java.util.*;
 
-class Bfs {
+class BfSearch {
     List<Integer> traverseBFS(TNode rootNode) {
         List<Integer> result = new ArrayList<>();
         if(rootNode == null) {
