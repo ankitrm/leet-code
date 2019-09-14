@@ -3,7 +3,7 @@ package trees;
 /**
  * // TODO Comment
  */
-class Dfs {
+class DfsTree {
   void postOrderRecur(TNode rootNode) {
     traversePostorder(rootNode);
     System.out.println();

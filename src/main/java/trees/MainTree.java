@@ -19,7 +19,7 @@ public class MainTree {
          printTree(bfSearch.zigZagTree(rootNode), "ZigZag Traversal");
 
 
-         Dfs dfs = new Dfs();
+         DfsTree dfs = new DfsTree();
          // 1 3 2 5 7 6 4 9 13 11 22 27 23 18 8
           System.out.println("Operation:: Postorder ->");
           dfs.postOrderRecur(rootNode);
