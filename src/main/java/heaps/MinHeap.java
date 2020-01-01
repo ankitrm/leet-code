@@ -62,11 +62,9 @@ class MinHeap {
             throw new IllegalArgumentException("Maximum capacity reached");
         }
 
-        if (isGrowing && size > capacity - 1) {
+        if (isGrowing && size > capacity - 1) {        // This will always make sure that the last element is redundant and recursive add is not required.
             remove();
         }
-
-
     }
 
     private void heapifyUp(int ele, int idx) {
