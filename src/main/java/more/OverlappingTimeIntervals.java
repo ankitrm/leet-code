@@ -30,24 +30,24 @@ public class OverlappingTimeIntervals {
     }
     elements.sort(Comparator.comparing(o -> o.get(0)));
 
-    int element1 = elements.get(0).get(0);
-    int element2 = elements.get(0).get(1);
+    int start1 = elements.get(0).get(0);
+    int end1 = elements.get(0).get(1);
 
     for (int i = 1; i < elements.size(); i++) {
-      int nextElement1 = elements.get(i).get(0);
-      int nextElement2 = elements.get(i).get(1);
+      int start2 = elements.get(i).get(0);
+      int end2 = elements.get(i).get(1);
 
-      if (element1 <= nextElement1 && element2 >= nextElement1 && element2 <= nextElement2) {
-        element2 = nextElement2;
-      } else if (element2 >= nextElement1 && element2 >= nextElement2) {
+      if (start1 <= start2 && end1 >= start2 && end1 <= end2) {
+        end1 = end2;
+      } else if (end1 >= start2 && end1 >= end2) {
         // Skip the record
       } else {
-        result.add(new ArrayList<>(Arrays.asList(element1, element2)));
-        element1 = nextElement1;
-        element2 = nextElement2;
+        result.add(new ArrayList<>(Arrays.asList(start1, end1)));
+        start1 = start2;
+        end1 = end2;
       }
     }
-    result.add(new ArrayList<>(Arrays.asList(element1, element2)));
+    result.add(new ArrayList<>(Arrays.asList(start1, end1)));
     return result;
   }
 }

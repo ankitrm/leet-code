@@ -63,6 +63,11 @@ public class MainTree {
          System.out.println(dfs.height(rootNode));
          System.out.println();
 
+       // diameter: 4
+       System.out.println("Operation:: Diameter ->");
+       System.out.println(dfs.diameter(rootNode));
+       System.out.println();
+
     }
 
     private static void printTree(List<Integer> traverseBFS, String operation) {
