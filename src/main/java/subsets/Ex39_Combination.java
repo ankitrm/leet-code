@@ -12,7 +12,6 @@ public class Ex39_Combination {
 
   static List<List<Integer>> subsets(int[] nums, int sum) {
     List<List<Integer>> res = new ArrayList<>();
-    Arrays.sort(nums);
     subsets(nums, res, new ArrayList<>(), sum, 0);
     return res;
   }

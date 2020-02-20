@@ -6,7 +6,7 @@ import java.util.List;
 public class Ex131_Palindrome_Partitioning {
 
   public static void main(String[] args) {
-    partition("aab").forEach(System.out::println);
+    partition("aabbb").forEach(System.out::println);
   }
 
   static List<List<String>> partition(String s) {
