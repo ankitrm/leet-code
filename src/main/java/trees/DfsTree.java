@@ -57,38 +57,16 @@ class DfsTree {
     }
   }
 
-  /*public int diameter(TNode rootNode) {
+  public int diameterHeight(TNode rootNode) {
     if (rootNode == null) {
       return 0;
     }
-
-    int currentDiameter = height(rootNode.left) + height(rootNode.right);
 
     int diamL = diameter(rootNode.left);
     int diamR = diameter(rootNode.right);
 
-    return Math.max(Math.max(diamL, diamR), currentDiameter);
-  }*/
-
-/*  int max = 0;
-  public int diameter(TNode rootNode) {
-    diameter2(rootNode);
-    return max;
+    return Math.max(Math.max(diamL, diamR), height(rootNode.left) + height(rootNode.right));
   }
-  public int diameter2(TNode rootNode) {
-    if (rootNode == null) {
-      return 0;
-    }
-
-    int diamL = diameter2(rootNode.left).;
-    int diamR = diameter2(rootNode.right);
-
-    // computes the max
-    max = Math.max(max, diamL + diamR);
-
-    // Continues to compute the height
-    return 1 + Math.max(diamL, diamR);
-  }*/
 
   class Height {
     int h;
@@ -103,6 +81,11 @@ class DfsTree {
       return 0;
     }
 
+    /**
+     * Diameter of a tree can be split between two parts:
+     *     1. If the diameter crosses the root (diameter will be height of left subtree + height of right subtree)
+     *     2. If the diameter does not, diameter will be Max of diameter of left vs diameter of right
+     */
     int diamL = diameter2(rootNode.left, new Height());
     int diamR = diameter2(rootNode.right, new Height());
 
