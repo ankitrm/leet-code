@@ -86,14 +86,14 @@ class DfsTree {
      *     1. If the diameter crosses the root (diameter will be height of left subtree + height of right subtree)
      *     2. If the diameter does not, diameter will be Max of diameter of left vs diameter of right
      */
-    int diamL = diameter2(rootNode.left, new Height());
-    int diamR = diameter2(rootNode.right, new Height());
+    int heightL = diameter2(rootNode.left, new Height());
+    int heightR = diameter2(rootNode.right, new Height());
 
     // computes the max
-    height.h = Math.max(height.h, diamL + diamR);
+    height.h = Math.max(height.h, heightL + heightR);
 
     // Continues to compute the height
-    return 1 + Math.max(diamL, diamR);
+    return 1 + Math.max(heightL, heightR);
   }
 
 
