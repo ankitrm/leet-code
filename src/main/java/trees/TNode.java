@@ -17,8 +17,8 @@ public class TNode {
     }
 
     int val;
-    TNode left = null, right = null;
-    TNode(int val) {
+    public TNode left = null, right = null;
+    public TNode(int val) {
         this.val = val;
     }
 }
