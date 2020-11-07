@@ -1,6 +1,7 @@
 package trees;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -26,7 +27,6 @@ public class SerializeDeserializeNAryTree {
      *                                               \
      *                                                9
      */
-
     public static void main(String[] args) {
 
         Node root = new Node(1);
@@ -55,8 +55,10 @@ public class SerializeDeserializeNAryTree {
 
         StringBuilder str = new StringBuilder();
         serialize(root, str);
+        // 125;6;;3;47;89;;;
         System.out.println("Serialized Tree : \n" + str);
 
+        // Constructed tree
         Node root2 = deserialize(str);
 
         System.out.println(root2);
