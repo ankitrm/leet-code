@@ -15,6 +15,11 @@ public class MainTree {
         // 8 4 18 2 6 11 23 1 3 5 7 9 13 22 27
          printTree(bfSearch.traverseBFS(rootNode), "BFS Traversal");
 
+         // Average: [8, 11, 10, 10]
+         System.out.println("Operation:: Average per level ->");
+         System.out.println(bfSearch.averagePerLevel(rootNode));
+         System.out.println();
+
         // 8 18 4 2 6 11 23 27 22 13 9 7 5 3 1
          printTree(bfSearch.zigZagTree(rootNode), "ZigZag Traversal");
 
