@@ -2,28 +2,26 @@ package trees;
 
 public class BinarySearch {
     public static void main(String[] args) {
-        int[] input = new int[]{1, 3, 7, 8, 10, 12, 16, 18, 22, 26, 19};
+        int[] input = new int[]{1, 3, 7, 8, 10, 12, 16, 18, 19, 22, 26};
 
-        System.out.println(binarySearch(input, 7));
+        System.out.println(bSearch(input, 3));
     }
 
-    private static int binarySearch(int[] input, int ele) {
-        int low = 0;
-        int high = input.length - 1;
-
-        return bSearch(low, high, input, ele);
-    }
-
-    private static int bSearch(int low, int high, int[] input, int ele) {
-        int mid = (low + high)/2;
-
-        if(input[mid] == ele) {
-            return mid;
-        } else if(input[mid] > ele) {
-            return bSearch(low, mid-1, input, ele);
+    private static int bSearch(int[] input, int ele) {
+        int low = 0, high = input.length;
+        while(low <= high) {
+            int mid = (low + high)/2;
+            if(input[mid] == ele) {
+                return mid;
+            }
+            if(input[mid] < ele) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
         }
-        else {
-            return bSearch(mid+1, high, input, ele);
-        }
+        return -1;
     }
+
+
 }
